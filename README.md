@@ -51,6 +51,29 @@ After deployment, append a ticker parameter to the URL:
 https://your-app-url.streamlit.app/?ticker=GOOGL
 ```
 
+## Live App
+
+Use Company Analyzer directly in your browser:
+
+[Open Company Analyzer](https://company-analyzer-raby.streamlit.app/)
+
+No download, installation, or GitHub account is required.
+
+Users can:
+
+- Enter a stock ticker and analyze a public company
+- Review financial performance and company information
+- Adjust DCF valuation assumptions
+- Compare the company with peer companies
+- Open recent SEC filing links
+- Download a PDF analysis report
+
+Example direct ticker link:
+
+[Analyze NVIDIA](https://company-analyzer-raby.streamlit.app/?ticker=NVDA)
+
+Users can interact with the app, but they cannot edit the source code or modify the GitHub repository. Each visitor uses a separate Streamlit session.
+
 ## Data sources
 
 Market and financial data are retrieved from Yahoo Finance through
