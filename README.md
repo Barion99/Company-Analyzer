@@ -38,7 +38,7 @@ Run the app:
 ```bash
 Open a terminal and run:
 
-```bash
+```
 git clone https://github.com/Barion99/Company-Analyzer.git
 cd Company-Analyzer
 pip install -r requirements.txt
