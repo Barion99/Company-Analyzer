@@ -1,3 +1,7 @@
+import re
+from urllib.parse import urlparse
+
+
 import pandas as pd
 import plotly.express as px
 import streamlit as st
@@ -34,6 +38,107 @@ def get_statement_row(statement, possible_names):
 
     return pd.Series(dtype="float64")
 
+
+
+def safe_divide(numerator, denominator):
+    """Divide safely when values are missing or zero."""
+    if (
+        numerator is None
+        or denominator is None
+        or pd.isna(numerator)
+        or pd.isna(denominator)
+        or denominator == 0
+    ):
+        return None
+
+    return numerator / denominator
+
+
+def latest_value(dataframe, column):
+    """Return the latest available value from a dataframe."""
+    if column not in dataframe.columns:
+        return None
+
+    values = dataframe[column].dropna()
+
+    if values.empty:
+        return None
+
+    return float(values.iloc[-1])
+
+
+def calculate_cagr(series):
+    """Calculate compound annual growth rate."""
+    values = series.dropna().sort_index()
+
+    if len(values) < 2:
+        return None
+
+    starting_value = float(values.iloc[0])
+    ending_value = float(values.iloc[-1])
+    number_of_years = int(values.index[-1] - values.index[0])
+
+    if (
+        starting_value <= 0
+        or ending_value <= 0
+        or number_of_years <= 0
+    ):
+        return None
+
+    return (
+        ending_value / starting_value
+    ) ** (1 / number_of_years) - 1
+
+
+def format_percent(value):
+    """Format a decimal value as a percentage."""
+    if value is None or pd.isna(value):
+        return "N/A"
+
+    return f"{value * 100:,.1f}%"
+
+def shorten_overview(text, max_sentences=3, max_chars=650):
+    """Create a concise company description."""
+    if not text:
+        return "No company description is available."
+
+    sentences = re.split(r"(?<=[.!?])\s+", text.strip())
+    overview = " ".join(sentences[:max_sentences])
+
+    if len(overview) > max_chars:
+        overview = overview[:max_chars].rsplit(" ", 1)[0] + "..."
+
+    return overview
+
+
+def get_company_logo_url(info):
+    """Return a company logo or website favicon URL."""
+    logo_url = info.get("logo_url")
+
+    if logo_url:
+        return logo_url
+
+    website = info.get("website")
+
+    if not website:
+        return None
+
+    normalized_website = (
+        website
+        if website.startswith(("http://", "https://"))
+        else f"https://{website}"
+    )
+
+    domain = urlparse(normalized_website).netloc
+    domain = domain.removeprefix("www.")
+
+    if not domain:
+        return None
+
+    return (
+        "https://www.google.com/s2/favicons"
+        f"?domain={domain}&sz=128"
+    )
 
 @st.cache_data(ttl=3600)
 def load_company_data(ticker_symbol):
@@ -82,9 +187,20 @@ if analyze:
             trailing_pe = info.get("trailingPE")
             dividend_yield = info.get("dividendYield")
 
-            st.header(f"{company_name} ({ticker})")
-            st.write(f"**Sector:** {sector}")
-            st.write(f"**Industry:** {industry}")
+            logo_url = get_company_logo_url(info)
+            
+            logo_column, heading_column = st.columns([1, 9])
+            
+            with logo_column:
+                if logo_url:
+                    st.image(logo_url, width=85)
+                else:
+                    st.markdown("## 🏢")
+                    
+            with heading_column:
+                st.header(f"{company_name} ({ticker})")
+                st.write(f"**Sector:** {sector}")
+                st.write(f"**Industry:** {industry}")
 
             col1, col2, col3, col4 = st.columns(4)
 
@@ -123,12 +239,60 @@ if analyze:
                 "No company description is available.",
             )
 
-            st.write(business_summary)
+            short_overview = shorten_overview(business_summary)
 
+            st.write(short_overview)
+
+            headquarters_parts = [
+                info.get("city"),
+                info.get("state"),
+                info.get("country"),
+            ]
+            
+            headquarters = ", ".join(
+                part for part in headquarters_parts if part
+            )
+            
+            employees = info.get("fullTimeEmployees")
+            website = info.get("website")
+            
+            overview1, overview2, overview3 = st.columns(3)
+            
+            with overview1:
+                st.caption("HEADQUARTERS")
+                st.write(headquarters or "N/A")
+                
+            with overview2:
+                st.caption("EMPLOYEES")
+                st.write(
+                    f"{employees:,}"
+                    if employees is not None
+                    else "N/A"
+                )
+                
+            with overview3:
+                st.caption("WEBSITE")
+                
+                if website:
+                    normalized_website = (
+                        website
+                        if website.startswith(("http://", "https://"))
+                        else f"https://{website}"
+                    )
+                    
+                    website_domain = urlparse(
+                        normalized_website
+                    ).netloc.removeprefix("www.")
+                    
+                    st.markdown(
+                        f"[{website_domain}]({normalized_website})"
+                    )
+                else:
+                    st.write("N/A")
+                    
             st.divider()
-
             st.subheader("Historical Financial Performance")
-
+            
             revenue = get_statement_row(
                 income_statement,
                 ["Total Revenue", "Operating Revenue"],
@@ -273,9 +437,91 @@ if analyze:
 
             balance4.metric(
                 "Debt-to-Equity",
-                f"{debt_to_equity:,.2f}"
+                f"{debt_to_equity / 100:,.2f}x"
                 if debt_to_equity is not None
                 else "N/A",
+            )
+
+            st.divider()
+
+            st.subheader("Financial Health and Profitability")
+
+            latest_revenue = latest_value(
+                financial_data,
+                "Revenue",
+            )
+
+            latest_operating_income = latest_value(
+                financial_data,
+                "Operating Income",
+            )
+
+            latest_net_income = latest_value(
+                financial_data,
+                "Net Income",
+            )
+
+            latest_free_cash_flow = latest_value(
+                financial_data,
+                "Free Cash Flow",
+            )
+
+            revenue_cagr = (
+                calculate_cagr(financial_data["Revenue"])
+                if "Revenue" in financial_data.columns
+                else None
+            )
+
+            operating_margin = safe_divide(
+                latest_operating_income,
+                latest_revenue,
+            )
+
+            net_margin = safe_divide(
+                latest_net_income,
+                latest_revenue,
+            )
+
+            free_cash_flow_margin = safe_divide(
+                latest_free_cash_flow,
+                latest_revenue,
+            )
+
+            return_on_assets = info.get("returnOnAssets")
+            return_on_equity = info.get("returnOnEquity")
+
+            ratio1, ratio2, ratio3 = st.columns(3)
+
+            ratio1.metric(
+                "Revenue CAGR",
+                format_percent(revenue_cagr),
+            )
+
+            ratio2.metric(
+                "Operating Margin",
+                format_percent(operating_margin),
+            )
+
+            ratio3.metric(
+                "Net Profit Margin",
+                format_percent(net_margin),
+            )
+
+            ratio4, ratio5, ratio6 = st.columns(3)
+
+            ratio4.metric(
+                "Free-Cash-Flow Margin",
+                format_percent(free_cash_flow_margin),
+            )
+
+            ratio5.metric(
+                "Return on Assets",
+                format_percent(return_on_assets),
+            )
+
+            ratio6.metric(
+                "Return on Equity",
+                format_percent(return_on_equity),
             )
 
         except Exception as error:
@@ -284,3 +530,4 @@ if analyze:
                 "Check the ticker and try again."
             )
             st.caption(f"Technical details: {error}")
+            
