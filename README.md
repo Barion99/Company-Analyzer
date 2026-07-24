@@ -55,23 +55,6 @@ After deployment, append a ticker parameter to the URL:
 https://your-app-url.streamlit.app/?ticker=GOOGL
 ```
 
-## Final testing
-
-Run the included smoke test:
-
-```bash
-python smoke_test.py
-```
-
-Then manually verify several categories:
-
-- Profitable technology company
-- Negative-FCF company
-- Bank or insurer
-- Non-dividend company
-- Newly listed company
-- Canadian or other non-US ticker
-
 ## Data sources
 
 Market and financial data are retrieved from Yahoo Finance through
