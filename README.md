@@ -23,18 +23,10 @@ valuation, comparable-company benchmarking, and SEC filing review.
 company_analyzer_final_release/
 ├── app.py
 ├── requirements.txt
-├── smoke_test.py
 ├── README.md
 └── .streamlit/
     └── config.toml
 ```
-
-## Local installation
-
-```bash
-python -m venv .venv
-```
-
 Activate the environment, then install dependencies:
 
 ```bash
@@ -44,7 +36,13 @@ pip install -r requirements.txt
 Run the app:
 
 ```bash
-streamlit run app.py
+Open a terminal and run:
+
+```bash
+git clone https://github.com/Barion99/Company-Analyzer.git
+cd Company-Analyzer
+pip install -r requirements.txt
+python -m streamlit run app.py
 ```
 
 ## Shareable ticker links
