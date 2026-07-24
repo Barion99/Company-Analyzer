@@ -29,7 +29,7 @@ company_analyzer_final_release/
 ```
 Activate the environment, then install dependencies:
 
-```bash
+```
 pip install -r requirements.txt
 ```
 
