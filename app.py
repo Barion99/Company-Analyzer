@@ -1196,7 +1196,7 @@ def build_pdf_report(report):
         canvas.drawString(
             14 * mm,
             8 * mm,
-            "Public Company Financial Analysis and Valuation - Educational analysis only",
+            "Developed by Raby Pich - Educational analysis only",
         )
         canvas.drawRightString(
             A4[0] - 14 * mm,
@@ -1229,7 +1229,7 @@ def build_pdf_report(report):
 
     elements.append(
         Paragraph(
-            "Company Overview",
+            "Developed by Raby Pich",
             styles["SectionHeading"],
         )
     )
