@@ -247,6 +247,13 @@ st.markdown(
             font-size: 1.08rem;
             line-height: 1.5;
         }
+        
+        .hero-author {
+            color: #5B6570;
+            margin-top: 0.55rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
 
         .company-card {
             display: flex;
@@ -1732,6 +1739,7 @@ st.markdown(
         <div class="hero-subtitle">
             Financial statements, valuation, comparable companies,
             and regulatory filings.
+            Developed by Raby Pich
         </div>
     </div>
     """,
