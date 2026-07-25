@@ -49,8 +49,6 @@ https://public-company-financial-analysis.streamlit.app/?ticker=GOOGL
 
 ## Live App
 
-No download, installation, or GitHub account is required.
-
 [Open the Live App](https://public-company-financial-analysis.streamlit.app/)
 
 No download, installation, or GitHub account is required.
