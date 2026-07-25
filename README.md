@@ -17,7 +17,7 @@ valuation, comparable-company benchmarking, and SEC filing review.
 - Shareable ticker URLs such as `?ticker=GOOGL`
 - Reset button for clearing the current analysis
 
-## Project files
+## Project Files
 
 ```text
 Public-Company-Financial-Analysis/
@@ -33,7 +33,6 @@ Public-Company-Financial-Analysis/
 Run the app:
 
 ```bash
-Open a terminal and run:
 git clone https://github.com/Raby88/Public-Company-Financial-Analysis.git
 cd Public-Company-Financial-Analysis
 pip install -r requirements.txt
@@ -42,15 +41,15 @@ python -m streamlit run app.py
 
 ## Shareable ticker links
 
-After deployment, append a ticker parameter to the URL:
+Append a ticker parameter to the live app URL:
 
 ```text
-https://your-app-url.streamlit.app/?ticker=GOOGL
+https://public-company-financial-analysis.streamlit.app/?ticker=GOOGL
 ```
 
 ## Live App
 
-Use Public Company Financial Analysis and Valuation directly in your browser:
+No download, installation, or GitHub account is required.
 
 [Open the Live App](https://public-company-financial-analysis.streamlit.app/)
 
@@ -79,6 +78,12 @@ Market and financial data are retrieved from Yahoo Finance through
 Data may be delayed, incomplete, restated, or reported differently
 across providers. Important figures should be verified against the
 company's latest regulatory filing.
+
+## Author
+
+Raby Pich
+
+Developed as an independent financial-analysis and valuation project.
 
 ## Disclaimer
 
