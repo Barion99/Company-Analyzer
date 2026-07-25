@@ -20,17 +20,14 @@ valuation, comparable-company benchmarking, and SEC filing review.
 ## Project files
 
 ```text
-company_analyzer_final_release/
+Public-Company-Financial-Analysis/
 ├── app.py
 ├── requirements.txt
 ├── README.md
-└── .streamlit/
-    └── config.toml
-```
-Activate the environment, then install dependencies:
-
-```
-pip install -r requirements.txt
+├── .streamlit/
+│   └── config.toml
+├── .devcontainer/
+└── .gitignore
 ```
 
 Run the app:
