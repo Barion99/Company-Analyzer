@@ -1,4 +1,4 @@
-# Company Analyzer
+# Public Company Financial Analysis and Valuation
 
 A Streamlit application for public-company financial analysis,
 valuation, comparable-company benchmarking, and SEC filing review.

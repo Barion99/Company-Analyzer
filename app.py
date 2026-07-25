@@ -42,7 +42,7 @@ BRAND_ICON_SLUGS = {
 }
 
 st.set_page_config(
-    page_title="Company Analyzer",
+    page_title="Public Company Financial Analysis and Valuation",
     page_icon="📊",
     layout="wide",
 )
@@ -984,7 +984,7 @@ def build_pdf_report(report):
             f"{report['company_name']} "
             f"({report['ticker']}) Analysis"
         ),
-        author="Company Analyzer",
+        author="Public Company Financial Analysis and Valuation",
     )
 
     styles = getSampleStyleSheet()
@@ -1189,7 +1189,7 @@ def build_pdf_report(report):
         canvas.drawString(
             14 * mm,
             8 * mm,
-            "Company Analyzer - Educational analysis only",
+            "Public Company Financial Analysis and Valuation - Educational analysis only",
         )
         canvas.drawRightString(
             A4[0] - 14 * mm,
@@ -1727,8 +1727,8 @@ def load_peer_metrics(ticker_symbols):
 st.markdown(
     """
     <div class="hero-shell">
-        <div class="hero-kicker">Public Company Financial Analysis</div>
-        <div class="hero-title">Company Analyzer</div>
+        <div class="hero-kicker">Financial Research and Valuation</div>
+        <div class="hero-title">Public Company Financial Analysis</div>
         <div class="hero-subtitle">
             Financial statements, valuation, comparable companies,
             and regulatory filings.
