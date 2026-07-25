@@ -52,7 +52,7 @@ https://your-app-url.streamlit.app/?ticker=GOOGL
 
 Use Public Company Financial Analysis and Valuation directly in your browser:
 
-Open the Live App
+[Open the Live App](https://public-company-financial-analysis.streamlit.app/)
 
 No download, installation, or GitHub account is required.
 
