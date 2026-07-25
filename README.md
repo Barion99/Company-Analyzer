@@ -37,8 +37,8 @@ Run the app:
 
 ```bash
 Open a terminal and run:
-git clone https://github.com/Barion99/Company-Analyzer.git
-cd Company-Analyzer
+git clone https://github.com/Raby88/Public-Company-Financial-Analysis.git
+cd Public-Company-Financial-Analysis
 pip install -r requirements.txt
 python -m streamlit run app.py
 ```
