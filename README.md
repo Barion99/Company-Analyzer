@@ -55,7 +55,7 @@ https://your-app-url.streamlit.app/?ticker=GOOGL
 
 Use Company Analyzer directly in your browser:
 
-[Open Company Analyzer](https://company-analyzer-raby.streamlit.app/)
+[Open Company Analyzer](https://public-company-financial-analysis.streamlit.app/)
 
 No download, installation, or GitHub account is required.
 
@@ -70,7 +70,7 @@ Users can:
 
 Example direct ticker link:
 
-[Analyze NVIDIA](https://company-analyzer-raby.streamlit.app/?ticker=NVDA)
+[Analyze NVIDIA](https://public-company-financial-analysis.streamlit.app/?ticker=NVDA)
 
 Users can interact with the app, but they cannot edit the source code or modify the GitHub repository. Each visitor uses a separate Streamlit session.
 
