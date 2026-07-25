@@ -799,7 +799,7 @@ def render_report_table(
 
 
 
-def shorten_overview(text, max_sentences=3, max_chars=650):
+def shorten_overview(text, max_sentences=3, max_chars=850):
     """Create a concise company description."""
     if not text:
         return "No company description is available."
@@ -1737,10 +1737,12 @@ st.markdown(
         <div class="hero-kicker">Financial Research and Valuation</div>
         <div class="hero-title">Public Company Financial Analysis</div>
         <div class="hero-subtitle">
-            Financial statements, valuation, comparable companies,
-            and regulatory filings.
-            Developed by Raby Pich
-        </div>
+             Financial statements, valuation, comparable companies, and regulatory filings.
+</div>
+
+<div class="hero-author">
+    Developed by Raby Pich
+</div>
     </div>
     """,
     unsafe_allow_html=True,
